@@ -9,7 +9,7 @@ local function getPaddlePosition(crankPos)
 
   if rotatedPos > 270 then return 0
   elseif rotatedPos > 180 then return 400
-  else return rotatedPos * 2.22 end
+  else return rotatedPos * 2.22 end -- 2.22 is 400 (screen width)/180 (ish) so use this to convert the crank angle into an X position
 end
 
 function Paddle:init(x, y)
