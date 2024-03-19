@@ -1,9 +1,9 @@
 {
   "Lua.diagnostics.globals": [
-    "playdate",
-    "class",
-    "import",
     "Paddle",
     "Ball"
+  ],
+  "Lua.workspace.library": [
+    "${env:PLAYDATE_SDK_PATH}"
   ]
 }
