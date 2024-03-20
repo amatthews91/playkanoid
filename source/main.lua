@@ -34,7 +34,7 @@ function playdate.update()
   if (state == STATES.Holding) then
     ball:moveTo(paddle.x, paddle.y - (ballR*2))
 
-    if playdate.buttonIsPressed(playdate.kButtonA) then
+    if playdate.buttonIsPressed(playdate.kButtonA) or playdate.buttonIsPressed(playdate.kButtonUp) then
       ball:launch(1, 0, -5)
       state = STATES.Playing
     end
