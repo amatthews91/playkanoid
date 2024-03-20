@@ -12,8 +12,9 @@ function Ball:init(x, y, r)
       gfx.fillCircleAtPoint(r, r, r)
   gfx.popContext()
   self:setImage(circle)
-  self:setCollideRect(x, y, r * 2, r * 2)
+  self:setCollideRect(0, 0, r * 2, r * 2)
 
+  self.collisionResponse = 'bounce'
   self.dirX = 0
   self.dirY = 0
   self.speed = 0
@@ -30,5 +31,14 @@ function Ball:stop()
 end
 
 function Ball:update()
-  self:moveWithCollisions(self.x + (self.dirX * self.speed), self.y + (self.dirY * self.speed))
+  Ball.super.update(self)
+
+  local _, _, cols, length = self:moveWithCollisions(self.x + (self.dirX * self.speed), self.y + (self.dirY * self.speed))
+
+  -- This only works right now as the ball moves directly up and down. Not a solution for when we have actual angles.
+  if (length > 0) then
+    -- self.dirX = cols[1].normal.dx
+    -- self.dirY = cols[1].normal.dy
+    self.speed *= -1
+  end
 end

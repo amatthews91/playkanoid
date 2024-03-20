@@ -24,6 +24,7 @@ function Paddle:init(x, y)
     gfx.fillRect(0, 0, w, h)
   gfx.popContext()
   self:setImage(rect)
+  self:setCollideRect(0, 0, w, h)
 
   self.y = y
   self.speed = 10

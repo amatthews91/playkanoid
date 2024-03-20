@@ -4,6 +4,7 @@ import "CoreLibs/graphics"
 
 import "paddle"
 import "ball"
+import "brick"
 
 local gfx <const> = playdate.graphics
 
@@ -19,9 +20,11 @@ local ballR = 5
 
 local paddle = Paddle(paddleX, paddleY)
 local ball = Ball(paddleX, paddleY-(ballR*2), ballR)
+local brick = Brick(paddleX, 40, 25, 10)
 
 paddle:add()
 ball:add()
+brick:add()
 
 function playdate.update()
   gfx.sprite.update()
@@ -32,9 +35,8 @@ function playdate.update()
     ball:moveTo(paddle.x, paddle.y - (ballR*2))
 
     if playdate.buttonIsPressed(playdate.kButtonA) then
-      ball:launch(1, 0, -10)
+      ball:launch(1, 0, -5)
       state = STATES.Playing
-      print(state)
     end
   elseif (state == STATES.Playing) then
     if playdate.buttonIsPressed(playdate.kButtonB) then
