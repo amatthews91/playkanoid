@@ -8,7 +8,8 @@ import "ball"
 local gfx <const> = playdate.graphics
 
 local STATES = {
-  Holding = "0"
+  Holding = "0",
+  Playing = "1"
 }
 
 local state = STATES.Holding
@@ -29,5 +30,16 @@ function playdate.update()
 
   if (state == STATES.Holding) then
     ball:moveTo(paddle.x, paddle.y - (ballR*2))
+
+    if playdate.buttonIsPressed(playdate.kButtonA) then
+      ball:launch(1, 0, -10)
+      state = STATES.Playing
+      print(state)
+    end
+  elseif (state == STATES.Playing) then
+    if playdate.buttonIsPressed(playdate.kButtonB) then
+      ball:stop()
+      state = STATES.Holding
+    end
   end
 end
