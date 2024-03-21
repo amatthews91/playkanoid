@@ -20,11 +20,28 @@ local ballR = 5
 
 local paddle = Paddle(paddleX, paddleY)
 local ball = Ball(paddleX, paddleY-(ballR*2), ballR)
-local brick = Brick(paddleX, 40, 25, 10)
+-- local brick = Brick(paddleX, 40, 26, 10)
+
+local rows = 5
+local columns = 12
+local bricks = {}
+for i = 1,rows,1
+do
+  for j = 1,columns,1
+  do
+    if bricks[i] == nil then
+      bricks [i] = {}
+    end
+
+    -- The X position was a lot of trial and error, probably doesnt work for all columns vals
+    bricks[i][j] = Brick((math.floor(400 / columns) * j) - (columns + 3), i * 15, 28, 10)
+    bricks[i][j]:add()
+  end
+end
 
 paddle:add()
 ball:add()
-brick:add()
+-- brick:add()
 
 function playdate.update()
   gfx.sprite.update()
