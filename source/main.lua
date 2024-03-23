@@ -16,11 +16,13 @@ local STATES = {
 local state = STATES.Holding
 local paddleX = 200
 local paddleY = 220
+
 local ballR = 5
+local ballStartX = 205
+local ballStartY = paddleY-(ballR*2)
 
 local paddle = Paddle(paddleX, paddleY)
-local ball = Ball(paddleX, paddleY-(ballR*2), ballR)
--- local brick = Brick(paddleX, 40, 26, 10)
+local ball = Ball(ballStartX, ballStartY, ballR)
 
 local rows = 5
 local columns = 12
@@ -49,10 +51,10 @@ function playdate.update()
   paddle:handleInput()
 
   if (state == STATES.Holding) then
-    ball:moveTo(paddle.x, paddle.y - (ballR*2))
+    ball:moveTo(ballStartX, ballStartY)
 
     if playdate.buttonIsPressed(playdate.kButtonA) or playdate.buttonIsPressed(playdate.kButtonUp) then
-      ball:launch(1, 0, -5)
+      ball:launch(1, paddle, ballStartX)
       state = STATES.Playing
     end
   elseif (state == STATES.Playing) then

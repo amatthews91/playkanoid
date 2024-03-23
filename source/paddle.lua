@@ -14,17 +14,17 @@ end
 
 function Paddle:init(x, y)
   local h = 10
-  local w = 40
+  self.w = 40
 
   Paddle.super.init(self)
   self:moveTo(x, y)
 
-  local rect = gfx.image.new(w, h)
+  local rect = gfx.image.new(self.w, h)
   gfx.pushContext(rect)
-    gfx.fillRect(0, 0, w, h)
+    gfx.fillRect(0, 0, self.w, h)
   gfx.popContext()
   self:setImage(rect)
-  self:setCollideRect(0, 0, w, h)
+  self:setCollideRect(0, 0, self.w, h)
 
   self.y = y
   self.speed = 10

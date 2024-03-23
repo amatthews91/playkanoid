@@ -20,8 +20,9 @@ function Ball:init(x, y, r)
   self.speed = 0
 end
 
-function Ball:launch(speed, x, y)
+function Ball:launch(speed, paddle, startPoint)
   self.speed = speed
+  local x,y = getPaddleLaunchAngle(paddle.w, paddle.x, startPoint)
   self.dirX = x
   self.dirY = y
 end
@@ -44,8 +45,28 @@ function Ball:update()
       end
     end
 
+    if (length == 1 and cols[1].other.className == 'Paddle') then
+      local paddle = cols[1].other
+      local x, y = getPaddleLaunchAngle(paddle.w, paddle.x, cols[1].touch.x)
+      self.dirX = x
+      self.dirY = y
+    end
+
     -- self.dirX = cols[1].normal.dx
     -- self.dirY = cols[1].normal.dy
     self.speed *= -1
   end
+end
+
+function getPaddleLaunchAngle(paddleWidth, paddleX, contactX)
+  -- Convert the point on the screen, X, where the ball touches the paddle to an angle between 10 and 170
+  -- Algorithm taken from https://stackoverflow.com/a/929107
+  -- return x, y directions
+  local paddleStart = (paddleX - (paddleWidth / 2))
+  local lowestAngle = 10
+  local angleRange = 160 -- (170 - 10) - dont go all the way flat i.e. 0 or 180
+  local launchAngle = (((contactX - paddleStart) * angleRange) / paddleWidth) + lowestAngle
+
+  local rads = math.rad(launchAngle)
+  return math.cos(rads), math.sin(rads)
 end
