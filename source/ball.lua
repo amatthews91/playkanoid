@@ -37,6 +37,13 @@ function Ball:update()
 
   -- This only works right now as the ball moves directly up and down. Not a solution for when we have actual angles.
   if (length > 0) then
+    for i = 1, length do
+      local collision = cols[i].other
+      if (collision.className == 'Brick') then
+        collision:hit()
+      end
+    end
+
     -- self.dirX = cols[1].normal.dx
     -- self.dirY = cols[1].normal.dy
     self.speed *= -1
