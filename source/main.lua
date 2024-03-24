@@ -18,11 +18,11 @@ local paddleX = 200
 local paddleY = 220
 
 local ballR = 5
-local ballStartX = 205
+local ballOffsetX = 5
 local ballStartY = paddleY-(ballR*2)
 
 local paddle = Paddle(paddleX, paddleY)
-local ball = Ball(ballStartX, ballStartY, ballR)
+local ball = Ball(paddle.x + ballOffsetX, ballStartY, ballR)
 
 local rows = 5
 local columns = 12
@@ -32,7 +32,7 @@ do
   for j = 1,columns,1
   do
     if bricks[i] == nil then
-      bricks [i] = {}
+      bricks[i] = {}
     end
 
     -- The X position was a lot of trial and error, probably doesnt work for all columns vals
@@ -51,10 +51,10 @@ function playdate.update()
   paddle:handleInput()
 
   if (state == STATES.Holding) then
-    ball:moveTo(ballStartX, ballStartY)
+    ball:moveTo(paddle.x + ballOffsetX, ballStartY)
 
     if playdate.buttonIsPressed(playdate.kButtonA) or playdate.buttonIsPressed(playdate.kButtonUp) then
-      ball:launch(1, paddle, ballStartX)
+      ball:launch(5, paddle, ball.x)
       state = STATES.Playing
     end
   elseif (state == STATES.Playing) then

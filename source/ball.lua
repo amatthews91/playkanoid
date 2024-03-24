@@ -63,8 +63,8 @@ function getPaddleLaunchAngle(paddleWidth, paddleX, contactX)
   -- Algorithm taken from https://stackoverflow.com/a/929107
   -- return x, y directions
   local paddleStart = (paddleX - (paddleWidth / 2))
-  local lowestAngle = 10
-  local angleRange = 160 -- (170 - 10) - dont go all the way flat i.e. 0 or 180
+  local lowestAngle = 20
+  local angleRange = 140 -- (160 - 20) - dont go all the way flat i.e. 0 or 180
   local launchAngle = (((contactX - paddleStart) * angleRange) / paddleWidth) + lowestAngle
 
   local rads = math.rad(launchAngle)
